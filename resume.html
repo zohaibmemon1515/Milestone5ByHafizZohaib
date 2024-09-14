@@ -1,57 +1,74 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Static Resume Builder</title>
-  <link rel="stylesheet" href="resume.css">
-</head>
-<body>
-  <h1>Resume Builder by <br> Zohaib Memon</h1>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Static Resume Builder</title>
+    <link rel="stylesheet" href="resume.css" />
+  </head>
+  <body>
+    <h1>
+      Resume Builder by <br />
+      Zohaib Memon
+    </h1>
 
-  <form id="Resume-Builder">
-    <fieldset>
-      <legend>Personal Information</legend>
+    <form id="Resume-Builder">
+      <fieldset>
+        <legend>Personal Information</legend>
+        <label for="name">Name:</label>
+        <input type="text" id="name" name="name" required /> <br /><br />
 
-      <label for="name">Name:</label>
-      <input type="text" id="name" name="name" required> <br><br>
+        <label for="email">Email:</label>
+        <input type="email" name="email" id="email" required /> <br /><br />
 
-      <label for="email">Email:</label>
-      <input type="email" name="email" id="email" required> <br><br>
+        <label for="phonenumber">Phone Number:</label>
+        <input type="number" name="phonenumber" id="phonenumber" required />
+        <br /><br />
 
-      <label for="phonenumber">Phone Number:</label>
-      <input type="number" name="phonenumber" id="phonenumber" required> <br><br>
+        <label for="profilepicture">Profile Picture:</label>
+        <input
+          type="file"
+          id="profilepicture"
+          class="profilepicture"
+          required
+        />
+      </fieldset>
+      <br /><br />
 
-      <label for="profilepicture">Profile Picture</label>
-      <input type="file" id="profilepicture" class="profilepicture" required>
-    </fieldset><br><br>
+      <fieldset>
+        <legend>Education</legend>
+        <label for="education">Education:</label>
+        <textarea name="education" id="education" rows="3" required></textarea
+        ><br />
+      </fieldset>
+      <br />
 
-    <fieldset>
-      <legend>Education</legend>
-      <label for="education">Education:</label>
-      <textarea name="education" id="education" rows="3" required></textarea><br>
-    </fieldset><br>
+      <fieldset>
+        <legend>Experience</legend>
+        <label for="experience">Experience:</label>
+        <textarea name="experience" id="experience" rows="3" required></textarea
+        ><br />
+      </fieldset>
 
-    <fieldset>
-      <legend>Experience</legend>
-      <label for="experience">Experience:</label>
-      <textarea name="experience" id="experience" rows="3" required></textarea><br>
-    </fieldset>
+      <fieldset>
+        <legend>Skills</legend>
+        <label for="Toggle-Skill">Do You Want To Add Skills?</label>
+        <input type="checkbox" id="Toggle-Skill" /><br />
 
-    <fieldset>
-      <legend>Skills</legend>
-      <label for="Toggle-Skill">Do You Want To Add Skills?</label>
-      <input type="checkbox" id="Toggle-Skill"><br>
+        <div id="Skill-Section" style="display: none">
+          <label for="skill">Skills:</label>
+          <textarea name="skill" id="skill" rows="3"></textarea><br />
+        </div>
+      </fieldset>
+      <br />
 
-      <div id="Skill-Section" style="display: none;">
-        <label for="skill">Skills:</label>
-        <textarea name="skill" id="skill" rows="3"></textarea><br>
-      </div>
-    </fieldset><br>
+      <button type="button" onclick="generateResume(event)">
+        Create Resume
+      </button>
 
-    <button type="submit" onclick="generateResume(event)">Create Resume</button>
+      <div id="ResumeOutput"></div>
+    </form>
 
-    <div id="ResumeOutput"></div>
-  </form>
-
-  <script src="resume.js"></script>
+    <script src="resume.js"></script>
+  </body>
+</html>

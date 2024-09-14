@@ -13,12 +13,20 @@ toggleSkillCheckbox.addEventListener("change", function () {
 
 function generateResume(e: Event): void {
   e.preventDefault();
-  const profilePictureInput = document.getElementById("profilepicture") as HTMLInputElement;
+  const profilePictureInput = document.getElementById(
+    "profilepicture"
+  ) as HTMLInputElement;
   const nameElement = document.getElementById("name") as HTMLInputElement;
   const emailElement = document.getElementById("email") as HTMLInputElement;
-  const phoneElement = document.getElementById("phonenumber") as HTMLInputElement;
-  const educationElement = document.getElementById("education") as HTMLTextAreaElement;
-  const experienceElement = document.getElementById("experience") as HTMLTextAreaElement;
+  const phoneElement = document.getElementById(
+    "phonenumber"
+  ) as HTMLInputElement;
+  const educationElement = document.getElementById(
+    "education"
+  ) as HTMLTextAreaElement;
+  const experienceElement = document.getElementById(
+    "experience"
+  ) as HTMLTextAreaElement;
   const skillsElement = document.getElementById("skill") as HTMLTextAreaElement;
 
   const name = nameElement.value;
@@ -29,11 +37,20 @@ function generateResume(e: Event): void {
   const skills = skillsElement.value;
 
   const profilePicture = profilePictureInput.files?.[0];
-  const profilePictureURL = profilePicture ? URL.createObjectURL(profilePicture) : "";
+  const profilePictureURL = profilePicture
+    ? URL.createObjectURL(profilePicture)
+    : "";
 
   const uniquePath = `resumes/${name.replace(/\s+/g, "_")}_cv.html`;
 
-  if (nameElement && emailElement && phoneElement && educationElement && experienceElement && skillsElement) {
+  if (
+    nameElement &&
+    emailElement &&
+    phoneElement &&
+    educationElement &&
+    experienceElement &&
+    skillsElement
+  ) {
     const resumeOutput = `
       <h2> Resume </h2>
       ${
@@ -50,21 +67,54 @@ function generateResume(e: Event): void {
       <p id="edit-experience" class="editable">${experience}</p>
       <h3> Skills </h3>
       <p id="edit-skills" class="editable">${skills}</p>
+
+      <button type="button" id="downloadResume" onclick="Printtopdf()">Download Resume</button>
     `;
 
-    const downloadLink = document.createElement("a");
-    downloadLink.href = "data:text/html;charset=utf-8," + encodeURIComponent(resumeOutput);
-    downloadLink.download = uniquePath;
-    downloadLink.textContent = "Download Your Resume";
-
-    const resumeOutputElement = document.getElementById("ResumeOutput") as HTMLElement;
+    const resumeOutputElement = document.getElementById(
+      "ResumeOutput"
+    ) as HTMLElement;
     if (resumeOutputElement) {
       resumeOutputElement.innerHTML = resumeOutput;
-      resumeOutputElement.appendChild(downloadLink);
+
       makeEditable();
     } else {
       console.log("The Resume Output Element is missing.");
     }
+  }
+}
+
+function Printtopdf(): void {
+  const resumeOutputElement =
+    document.getElementById("ResumeOutput")?.innerHTML;
+
+  if (resumeOutputElement) {
+    // Create a new window for the print preview
+    const printWindow = window.open("", "", "height=600,width=800");
+
+    if (printWindow) {
+      // Set up the print window's document with the content
+      printWindow.document.open();
+      printWindow.document.write(`
+              <html>
+              <head>
+                  <title>Print Resume</title>
+                  <style>
+                      /* Add any print-specific styles here */
+                      body { font-family: Arial, sans-serif; }
+                  </style>
+              </head>
+              <body onload="window.print();window.close();">
+                  ${resumeOutputElement}
+              </body>
+              </html>
+          `);
+      printWindow.document.close();
+    } else {
+      console.error("Failed to open print window.");
+    }
+  } else {
+    console.error("Resume output element not found.");
   }
 }
 
@@ -94,4 +144,3 @@ function makeEditable() {
     });
   });
 }
-
